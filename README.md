@@ -31,3 +31,10 @@ Los datos pertecen al centro de enfermedades cardíacas de Estados Unidos.
 <p align="center">(<a href="https://www.cdc.gov/heartdisease/index.htm">Enlace Heart Disease Center USA</a>)</p>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+## Contacto
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+* [LinkedIn](https://www.linkedin.com/in/kiril-morozov-data/)
+
