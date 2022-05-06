@@ -1,6 +1,6 @@
 
 <!-- ABOUT THE PROJECT -->
-## XGboost Model Web App - Heart Stroke Prediction
+# XGboost Model Web App - Heart Stroke Prediction
 
 <img src="static/home.png" alt="Web"  width="1800" height="600">
 
