@@ -13,7 +13,7 @@ Objetivos:
 * Despliegue del modelo como servicio Web
 
 
-### Built With
+### Librerias y SDK
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
@@ -22,5 +22,12 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * Sciokit-Learn
 * Pandas
 * Numpy
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+## Datos
+Los datos pertecen al centro de enfermedades cardíacas de Estados Unidos.
+<p align="center">(<a href="https://www.cdc.gov/heartdisease/index.htm">back to top</a>)</p>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
