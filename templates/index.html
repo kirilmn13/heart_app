@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang = 'es'>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset = "UTF-8">
+    <title>grade prediction</title>
+    <style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+.btn { display: inline-block; *display: inline; *zoom: 1; padding: 4px 10px 4px; margin-bottom: 0; font-size: 13px; line-height: 18px; color: #333333; text-align: center;text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); vertical-align: middle; background-color: #f5f5f5; background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6); background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6)); background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6); background-image: -o-linear-gradient(top, #ffffff, #e6e6e6); background-image: linear-gradient(top, #ffffff, #e6e6e6); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0); border-color: #e6e6e6 #e6e6e6 #e6e6e6; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); border: 1px solid #e6e6e6; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); cursor: pointer; *margin-left: .3em; }
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] { background-color: #e6e6e6; }
+.btn-large { padding: 9px 14px; font-size: 15px; line-height: normal; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.btn:hover { color: #333333; text-decoration: none; background-color: #e6e6e6; background-position: 0 -15px; -webkit-transition: background-position 0.1s linear; -moz-transition: background-position 0.1s linear; -ms-transition: background-position 0.1s linear; -o-transition: background-position 0.1s linear; transition: background-position 0.1s linear; }
+.btn-primary, .btn-primary:hover { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); color: #ffffff; }
+.btn-primary.active { color: rgba(255, 255, 255, 0.75); }
+.btn-primary { background-color: #4a77d4; background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4); background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de), to(#4a77d4)); background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4); background-image: -o-linear-gradient(top, #6eb6de, #4a77d4); background-image: linear-gradient(top, #6eb6de, #4a77d4); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);  border: 1px solid #3762bc; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); }
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
+.btn-block { width: 100%; display:block; }
+
+* { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; }
+
+html { width: 100%; height:100%; overflow: scroll; min-height: 100%;
+}
+
+body { 
+	width: 100%;
+	height:100%;
+	font-family: 'Open Sans', sans-serif;
+	background: #092756;
+	color: #fff;
+	font-size: 18px;
+	text-align:center;
+	letter-spacing:1.2px;
+	background: -moz-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%),-moz-linear-gradient(top,  rgba(57,173,219,.25) 0%, rgba(42,60,87,.4) 100%), -moz-linear-gradient(-45deg,  #670d10 0%, #092756 100%);
+	background: -webkit-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -webkit-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -webkit-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+	background: -o-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -o-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -o-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+	background: -ms-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -ms-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -ms-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+	background: -webkit-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+	background-attachment: fixed;
+    background-size: 100% ;
+}
+.login { 
+	position: relative;
+	top: 20%;
+	left: 45%;
+	margin: -120px 0 0 -160px;
+	width: 500px;
+	height:1450px;
+}
+
+.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+
+input { 
+	width: 100%; 
+	margin-bottom: 10px; 
+	background: rgba(0,0,0,0.3);
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+	-webkit-transition: box-shadow .5s ease;
+	-moz-transition: box-shadow .5s ease;
+	-o-transition: box-shadow .5s ease;
+	-ms-transition: box-shadow .5s ease;
+	transition: box-shadow .5s ease;
+}
+input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255, 255, 255, 0.2); }
+
+select { 
+	width: 100%; 
+	margin-bottom: 10px; 
+	background: rgba(0,0,0,0.3);
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+	-webkit-transition: box-shadow .5s ease;
+	-moz-transition: box-shadow .5s ease;
+	-o-transition: box-shadow .5s ease;
+	-ms-transition: box-shadow .5s ease;
+	transition: box-shadow .5s ease;
+}
+.github {
+margin-top: 200px;
+position: absolute;
+width: 100%;
+}
+
+
+* {
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	min-height: 100vh;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+h2,
+h3,
+a {
+	color: #34495e;
+    padding-bottom: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+
+.logo {
+	margin: 0;
+	font-size: 1.45em;
+}
+
+.main-nav {
+	margin-top: 5px;
+
+}
+.logo a,
+.main-nav a {
+	padding: 10px 15px;
+	text-transform: uppercase;
+	text-align: center;
+	display: block;
+}
+
+.main-nav a {
+	color: #34495e;
+	font-size: .99em;
+}
+
+.main-nav a:hover {
+	color: #718daa;
+}
+
+
+
+.header {
+	padding-top: .5em;
+	padding-bottom: .5em;
+	border: 1px solid #a2a2a2;
+	background-color: #f4f4f4;
+	-webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 1px;
+}
+
+.b {
+    background: rgba(255, 255, 255, 0.5);
+    border:2px;
+}
+
+@media (min-width: 769px) {
+	.header,
+	.main-nav {
+		display: flex;
+	}
+	.header {
+		flex-direction: column;
+		align-items: center;
+
+	}
+}
+
+@media (min-width: 1025px) {
+	.header {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+}
+    </style>
+</head>
+<header class="header">
+    <h1 class="logo"><a href="#">Kiril.M.</a></h1>
+  <ul class="main-nav">
+      <li><a href="#">Inicio</a></li>
+      <li><a href="https://www.linkedin.com/in/kiril-morozov-data/">LinkedIn</a></li>
+      <li><a href="https://github.com/kirilmn13">GitHub</a></li>
+  </ul>
+</header> 
+
+<body>
+    
+
+
+    <h1 style="text-align:center;color: rgb(236, 232, 232);font-family: inherit;padding-top: 50px;">Modelo XGBoost para estimar probabilidad de tener una enfermedad Cardíaca</h1>
+    <hr style="color: rgb(0, 0, 0);">
+
+
+    <h2 style="color: rgb(255, 255, 255);padding-bottom: 50px;;">Guía de uso</h2>
+
+    <div class="a">
+            <ul class="reglas">
+                <li>Estado Mental: Nº de días del último mes en los que consideras que no has tenido estres, depresión, malestar.</li>
+                <li>Índice de masa corporal: Bajo peso (IMC < 18,5), Rango normal (IMC = 18,5-24,9), Sobrepeso (IMC = 24.9-29,9), Obesidad (IMC >30) </li>
+                <li>Estado Físico: Nº de días del último mes en los que consideras que te has encontrado bien físicamente sin dolores, molestias, cansancio </li>
+            </ul>
+    </div>
+    <div class='b' style="text-align:center;color: rgb(236, 232, 232);font-family: inherit;"> 
+        
+        <!-- Our 'result' is false until a prediction has been made -->
+        {% if statement %}
+            <br>
+            <!-- Print prediction -->
+            <br> Resultado del análisis:
+            <p style="font-size:35px;color: rgb(170, 20, 20);">{{ statement }}</p>
+        
+        {% endif %}
+    </div>
+    <div class="login">
+        <form style="margin-top: 50px;padding-left:0px;" action="{{url_for('predict')}}" method="post">
+
+
+
+
+
+            <input type="text" placeholder="Estado Mental" aria-label="default input example" required='required' name="a">
+            <br><br>
+
+            <input type="text" placeholder="Índice de masa corpotal" aria-label="default input example" required='required' name="b">
+            <br><br>
+
+            <input type="text" placeholder="Estado Físico" aria-label="default input example" required='required' name="c">
+            <br><br>
+
+            <input type="text" placeholder="Horas de sueño diarias" aria-label="default input example" required='required' name="d">
+            <br><br>
+
+            <select aria-label="Fumador@" type="text" required='required' name="e">
+
+                <option value="1">Fumador@</option>
+                <option value="2">No Fumador@</option>
+
+            </select>
+            <br><br>
+
+            <select aria-label="Bebedor@" type="text" required='required' name="f">
+
+                <option value="1">Bebedor@</option>
+                <option value="2">No bebedor@</option>
+
+            </select>
+            <br><br>
+
+            <select aria-label="Infarto@" type="text" required='required' name="g">
+
+                <option value="1">He sufrido Infarto</option>
+                <option value="2">No he sufrido Infarto</option>
+
+            </select>
+            <br><br>
+            
+            <select aria-label="Dificultad@" type="text" required='required' name="h">
+
+                <option value="1">Tengo dificultad para subir escaleras</option>
+                <option value="2">No tengo dificultad para subir escaleras</option>
+
+            </select>
+            <br><br>
+
+
+            <select aria-label="Actividad" type="text" required='required' name="i">
+
+                <option value="1">Hago Actividad Física</option>
+                <option value="2">No Hago actividad Física</option>
+
+            </select>
+            <br><br>
+
+            <select aria-label="Asma" type="text" required='required' name="j">
+
+                <option value="1">Tengo asma</option>
+                <option value="2">No tengo asma</option>
+
+            </select>
+            <br><br>
+
+            <select aria-label="childdisease" type="text" required='required' name="k">
+
+                <option value="1">He tenido enfermedad en la infancia</option>
+                <option value="2">No he tenido enfermedad en la infancia</option>
+
+            </select>
+            <br><br>
+            
+            <select aria-label="cancer" type="text" required='required' name="l">
+
+                <option value="1">He tenido cancer de piel</option>
+                <option value="2">No he tenido cancer de piel</option>
+
+            </select>
+            <br><br>
+
+            <select aria-label="sexo" type="text" required='required' name="m">
+
+                <option value="1">Hombre</option>
+                <option value="2">Mujer</option>
+
+            </select>
+            <br><br>
+            
+
+            <select aria-label="Edad" type="text" required='required' name="n">
+
+                <option value="1">Edad 18-24</option>
+                <option value="2">Edad 25-29</option>
+                <option value="3">Edad 30-34</option>
+                <option value="4">Edad 35-39</option>
+                <option value="5">Edad 40-44</option>
+                <option value="6">Edad 45-49</option>
+                <option value="7">Edad 50-54</option>
+                <option value="8">Edad 55-59</option>
+                <option value="9">Edad 60-64</option>
+                <option value="10">Edad 65-69</option>
+                <option value="11">Edad 70-74</option>
+                <option value="12">Edad 75-79</option>
+                <option value="12">Edad 80 o más</option>
+
+            </select>
+            <br><br>
+
+            <select aria-label="Raza" type="text" required='required' name="o">
+
+                <option value="1">Caucásico</option>
+                <option value="2">Afro</option>
+                <option value="3">Asiático</option>
+                <option value="4">Indio-Americano</option>
+                <option value="5">Hispano</option>
+                <option value="6">Otro</option>
+            </select>
+            <br><br>
+            
+            <select aria-label="Diabetes" type="text" required='required' name="p">
+
+                <option value="1">Diabético</option>
+                <option value="2">No diabético</option>
+                <option value="3">Diabetes en el embarazo</option>
+                <option value="4">Casi diabético</option>
+            </select>
+            <br><br>
+
+            <select aria-label="Salud" type="text" required='required' name="q">
+
+                <option value="1">Salud general : Excelente</option>
+                <option value="2">Salud general : Muy buena</option>
+                <option value="3">Salud general : Regular</option>
+                <option value="4">Salud general : Mejorable</option>
+                <option value="4">Salud general : Pésima</option>
+            </select>
+            <br><br>
+
+
+            
+
+            <button style="margin-left:00px" type="submit" class="btn btn-outline-danger btn-lg">Predict</button><br><br>
+
+
+
+
+           <!-- <b style="color: rgb(255, 255, 255);font-size: 22px;">{{statement}}</b> -->
+            
+
+        </form>
+
+    </div>
+    <div class="github">
+        <p ><a style="color: rgb(45, 11, 240);" href="https://github.com/kirilmn13;">GitHub con código abierto</a></p>   
+    </div>
+    <br>
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
