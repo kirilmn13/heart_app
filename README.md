@@ -4,7 +4,7 @@
 
 <img src="static/home.png" alt="Web"  width="1800" height="600">
 
-p align="center">(<a href="https://deteccion-infarto.herokuapp.com/">Enlace a la APP USA</a>)</p>
+<p align="center">(<a href="https://deteccion-infarto.herokuapp.com/">Enlace a la APP </a>)</p>
 
 A partir de un dataset de marcadores personales etiquetados con presencia o no de enfermedad cardíaca. Se ha desarrollado un modelo basado en archi-conocida arquitectura XGboost para estimar la probabilidad de padecer una enfermedad del corazón.
 
