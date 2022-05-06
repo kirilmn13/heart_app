@@ -1,9 +1,6 @@
-# heart_app
-XGboost Model Web App - Heart Stroke Prediction
-
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## XGboost Model Web App - Heart Stroke Prediction
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
